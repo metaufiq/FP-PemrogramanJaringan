@@ -59,11 +59,11 @@ def playerThread(conn, addr):
         message = message + "Waiting for " + str(4-len(player)) +" player to play this game\n\n"
     time.sleep(0.5)
     conn.send(message)
-    conn.send("CARDS_"+"".join(str(card) for card in player_cards))
+
 
     while len(player) < 4:
         continue
-
+    broadcast("NOTIFICATION_Lets Play!!!")
     while True: 
             try:
                 
@@ -109,21 +109,10 @@ def broadcast(message):
 def remove(connection): 
     if connection in list_of_player: 
         list_of_player.remove(connection) 
-def roundPlay(conn):
-    for p in list_of_player:
-            try:
-                if player == conn:
-                    p.send("PLAY_")
-                else:
-                    p.send("NOTIFICATION_wait for your turn")
 
-            except: 
-                p.close() 
-  
-                remove(p) 
-while True: 
-  
-    if len(list_of_player) < 4:
+
+def getAllPlayers():
+    while len(list_of_player) < 4:
         conn, addr = server.accept() 
         list_of_player.append(conn)
 
@@ -146,19 +135,27 @@ while True:
                 first = conn
 
             player_cards.append(card)
-        print "CARDS_"+"".join(str(card) for card in player_cards)
 
+        conn.send("CARDS_"+"".join(str(card) for card in player_cards))
         player[-1].setCards(player_cards)
-        start_new_thread(playerThread,(conn,addr))
-        
-    else:
-        setTurn()
-        broadcast("NOTIFICATION_Lets Play!!!")
-        
-        now = turn.get()
-        turn.put(now)
+        start_new_thread(playerThread,(conn,addr))   
 
-        roundPlay(now)           
-  
-conn.close() 
+
+        
+
+
+if __name__ == "__main__": 
+    getAllPlayers()
+    setTurn()
+    Finish = False
+
+    playerNow = turn.get()
+    turn.put(playerNow)
+
+
+    while not Finish:
+        continue
+
+
+
 server.close()
