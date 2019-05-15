@@ -51,19 +51,10 @@ def setTurn():
 
 
 def playerThread(conn, addr): 
-  
-    # sends a message to the client whose user object is conn 
-    message =  "NOTIFICATION_Welcome to CAPSA!\n\n"
-    
-    if len(player) < 4:
-        message = message + "Waiting for " + str(4-len(player)) +" player to play this game\n\n"
-    time.sleep(0.5)
-    conn.send(message)
 
 
     while len(player) < 4:
         continue
-    broadcast("NOTIFICATION_Lets Play!!!")
     while True: 
             try:
                 
@@ -138,6 +129,16 @@ def getAllPlayers():
 
         conn.send("CARDS_"+"".join(str(card) for card in player_cards))
         player[-1].setCards(player_cards)
+        
+        time.sleep(0.5)
+
+        # sends a message to the client whose user object is conn 
+        message =  "NOTIFICATION_Welcome to CAPSA!\n\n"
+    
+        if len(player) < 4:
+            message = message + "Waiting for " + str(4-len(player)) +" player to play this game\n\n"
+        
+        conn.send(message);
         start_new_thread(playerThread,(conn,addr))   
 
 
@@ -145,17 +146,27 @@ def getAllPlayers():
 
 
 if __name__ == "__main__": 
+    
     getAllPlayers()
+    
     setTurn()
+    
     Finish = False
+    
+    broadcast("NOTIFICATION_Lets Play!!!")
 
     playerNow = turn.get()
     turn.put(playerNow)
 
 
     while not Finish:
-        continue
+        playerNow.send("Play_Play")
 
+        while not message:
+            message = playerNow.recv(2048)
+
+        playerNow = turn.get()
+        turn.put(playerNow)
 
 
 server.close()
