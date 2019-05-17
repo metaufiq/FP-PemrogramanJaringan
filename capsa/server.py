@@ -50,50 +50,10 @@ def setTurn():
             turn.put(player[i].conn)    
 
 
-def playerThread(conn, addr): 
-  
-    # sends a message to the client whose user object is conn 
-    message =  "NOTIFICATION_Welcome to CAPSA!\n\n"
-    
-    if len(player) < 4:
-        message = message + "Waiting for " + str(4-len(player)) +" player to play this game\n\n"
-    time.sleep(0.5)
-    conn.send(message)
+def chatThread(conn, addr): 
 
-
-    while len(player) < 4:
-        continue
-    broadcast("NOTIFICATION_Lets Play!!!")
     while True: 
-            try:
-                
-                if now != conn:
-                    conn.send("NOTIFICATION_not your turn")
-                    continue
-                
-
-                cards = conn.recv(2048) 
-                if cards: 
-
-                    del cards_on_board[:]
-
-                    for i in range(len(card)):
-                        cards_on_board.append(card)
-
-
-                    message_to_send = "ONBOARD_".join(str(card) for card in cards_on_board)                    
-                    print message_to_send
-    
- 
-
-                    broadcast(message_to_send) 
-    
-                else: 
-
-                    remove(conn) 
-  
-            except: 
-                continue
+        pass
   
 def broadcast(message): 
     for p in list_of_player:  
@@ -138,24 +98,45 @@ def getAllPlayers():
 
         conn.send("CARDS_"+"".join(str(card) for card in player_cards))
         player[-1].setCards(player_cards)
-        start_new_thread(playerThread,(conn,addr))   
+        
+        time.sleep(0.5)
+
+        # sends a message to the client whose user object is conn 
+        message =  "NOTIFICATION_Welcome to CAPSA!\n\n"
+    
+        if len(player) < 4:
+            message = message + "Waiting for " + str(4-len(player)) +" player to play this game\n\n"
+        
+        conn.send(message);
+        start_new_thread(chatThread,(conn,addr))   
 
 
         
 
 
 if __name__ == "__main__": 
+    
     getAllPlayers()
+    
     setTurn()
+    
     Finish = False
+    
+    broadcast("NOTIFICATION_Lets Play!!!")
 
     playerNow = turn.get()
     turn.put(playerNow)
 
 
     while not Finish:
-        continue
+        playerNow.send("Play_Play")
 
+        message = playerNow.recv(2048)
+        while not message:
+            message = playerNow.recv(2048)
+        
+        playerNow = turn.get()
+        turn.put(playerNow)
 
 
 server.close()
