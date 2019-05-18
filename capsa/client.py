@@ -37,7 +37,6 @@ while True:
         if socks == server:
             message = socks.recv(2048)
             command = message.split('_')
-            print command
             if command[0] == 'NOTIFICATION':
                 print command[1]+'\n\n'
 
@@ -49,6 +48,7 @@ while True:
                 print "Your Turn\n\n"
                 for card in cardsOnHand:
                     print 'card value:'+ str(card.value) + 'card type:' + str(card.type) + '\n\n'
+                sys.stdout.write("\n\n<Command>: ") 
                 message = sys.stdin.readline()
                 server.send(str(message)) 
                 sys.stdout.write("<You>\n\n") 
@@ -56,5 +56,6 @@ while True:
                 sys.stdout.flush()
             else:
                 player = pickle.loads(message)
+                print "cards sending to you"
                 cardsOnHand = player.getCards()
 server.close() 
