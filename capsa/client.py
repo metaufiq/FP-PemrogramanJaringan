@@ -46,12 +46,16 @@ while True:
 
             elif command[0] == 'PLAY':
                 print "Your Turn\n\n"
+                
                 for card in cardsOnHand:
                     print 'card value:'+ str(card.value) + 'card type:' + str(card.type) + '\n\n'
+                
                 sys.stdout.write("\n\n<Command>: ") 
                 message = sys.stdin.readline()
-                server.send(str(message)) 
-                sys.stdout.write("<You>\n\n") 
+                
+                server.send(str(message))
+
+                sys.stdout.write("\n\n<You>: ") 
                 print message
                 sys.stdout.flush()
             else:
