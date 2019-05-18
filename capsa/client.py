@@ -3,6 +3,7 @@ import socket
 import select 
 import sys
 import msvcrt
+import pickle
  
   
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
@@ -11,6 +12,8 @@ IP_address = "192.168.1.8"
 Port = 8080 
 server.connect((IP_address, Port)) 
 play = False
+cardsOnHand = []
+cardsOnBoard = []
 
 while True: 
   
@@ -37,10 +40,6 @@ while True:
             print command
             if command[0] == 'NOTIFICATION':
                 print command[1]+'\n\n'
-            elif command[0] == 'CARDS':
-                cardsOnHand = command[1].split(' ')
-
-                print "Your cards are: "+ str(cardsOnHand) + '\n\n'
 
             elif command[0] == 'ONBOARD':
                 cardsOnBoard = command[1].split(' ')
@@ -48,11 +47,14 @@ while True:
 
             elif command[0] == 'PLAY':
                 print "Your Turn\n\n"
-                card = [1,2,3]
+                for card in cardsOnHand:
+                    print 'card value:'+ str(card.value) + 'card type:' + str(card.type) + '\n\n'
                 message = sys.stdin.readline()
-                message = card
                 server.send(str(message)) 
                 sys.stdout.write("<You>\n\n") 
                 print message
                 sys.stdout.flush()
+            else:
+                player = pickle.loads(message)
+                cardsOnHand = player.getCards()
 server.close() 
