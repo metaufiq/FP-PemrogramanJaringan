@@ -1,7 +1,6 @@
 class Player():
-    def __init__(self, IP, conn):
+    def __init__(self, IP):
         self.IP = IP
-        self.conn = conn
 
     def setCards(self,cards):
         self.cards = cards
