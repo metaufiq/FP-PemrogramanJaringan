@@ -3,6 +3,7 @@ import socket
 import select 
 import sys 
 import Queue
+import pickle
 from Player import *
 from Deck import *
 from thread import *
@@ -44,10 +45,10 @@ first = 0
 
 def setTurn():
 
-    for i in range(len(player)):
+    for conn in range(len(list_of_player)):
         
-        if player[i].conn != first:
-            turn.put(player[i].conn)    
+        if conn != first:
+            turn.put(conn)    
 
 
 def chatThread(conn, addr): 
@@ -78,7 +79,7 @@ def getAllPlayers():
 
         print addr[0] + " connected "
 
-        player.append(Player(addr[0], conn))
+        player.append(Player(addr[0]))
     
         player_cards =[]
 
@@ -95,20 +96,20 @@ def getAllPlayers():
                 first = conn
 
             player_cards.append(card)
-
-        conn.send("CARDS_"+"".join(str(card) for card in player_cards))
+        
         player[-1].setCards(player_cards)
         
-        time.sleep(0.5)
-
+        conn.send(pickle.dumps(player[-1]))
+        time.sleep(2)
         # sends a message to the client whose user object is conn 
         message =  "NOTIFICATION_Welcome to CAPSA!\n\n"
     
         if len(player) < 4:
             message = message + "Waiting for " + str(4-len(player)) +" player to play this game\n\n"
         
-        conn.send(message);
-        start_new_thread(chatThread,(conn,addr))   
+        conn.send(message)
+        time.sleep(2)
+        #start_new_thread(chatThread,(conn,addr))   
 
 
         
@@ -123,13 +124,13 @@ if __name__ == "__main__":
     Finish = False
     
     broadcast("NOTIFICATION_Lets Play!!!")
-
     playerNow = turn.get()
     turn.put(playerNow)
 
 
     while not Finish:
-        playerNow.send("Play_Play")
+        time.sleep(2)
+        playerNow.send("PLAY_Play")
 
         message = playerNow.recv(2048)
         while not message:
