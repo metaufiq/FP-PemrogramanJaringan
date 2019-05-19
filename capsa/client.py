@@ -4,6 +4,7 @@ import select
 import sys
 import msvcrt
 import pickle
+from Message import *
  
   
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
@@ -35,33 +36,39 @@ while True:
 
     for socks in read_sockets: 
         if socks == server:
-            message = socks.recv(2048)
-            command = message.split('_')
-            if command[0] == 'NOTIFICATION':
-                print command[1]+'\n\n'
+            mail = socks.recv(2048)
+            message = pickle.loads(mail)
+            if message.type == 'NOTIFICATION':
+                print message.message+'\n\n'
 
-            elif command[0] == 'ONBOARD':
-                cardsOnBoard = command[1].split(' ')
-                print "cards on Board are: " + str(cardsOnBoard) +'\n\n'
-
-            elif command[0] == 'PLAY':
+            elif message.type == 'PLAY':
                 print "Your Turn\n\n"
-                
+                print"your cards: \n"
+                i = 1
                 for card in cardsOnHand:
-                    print 'card value:'+ str(card.value) + 'card type:' + str(card.type) + '\n\n'
-                print '\n\nv\n\n'
+                    print 'value:'+ str(card.value) + '\ttype:' + str(card.type) + '\n'
+                    
+                    i+=1
+                
                 card = 0
-                card = input("select card: ")
+                card = input("\nselect card: ")
                 card = card - 1
 
                 server.send(pickle.dumps(cardsOnHand[card]))
-                sys.stdout.write("\n\nselect card: \n") 
+                sys.stdout.write("\n\nselected card: \n") 
                 print "value: " + str(cardsOnHand[card].value) + "\ttype: " + str(cardsOnHand[card].type) + "\n\n"
                 cardsOnHand.remove(cardsOnHand[card])
-                
+
                 sys.stdout.flush()
-            else:
-                player = pickle.loads(message)
+            elif message.type == 'ONBOARD':
+                cardsOnBoard = message.message
+
+                print "cards on board: \n"
+                for card in cardsOnBoard:
+                    print 'value:'+ str(card.value) + '\ttype:' + str(card.type) + '\n'
+                        
+            elif message.type == 'PLAYER':
+                player = message.message
                 print "cards sending to you"
                 cardsOnHand = player.getCards()
 server.close() 
