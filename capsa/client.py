@@ -49,14 +49,16 @@ while True:
                 
                 for card in cardsOnHand:
                     print 'card value:'+ str(card.value) + 'card type:' + str(card.type) + '\n\n'
-                
-                sys.stdout.write("\n\n<Command>: ") 
-                message = sys.stdin.readline()
-                
-                server.send(str(message))
+                print '\n\nv\n\n'
+                card = 0
+                card = input("select card: ")
+                card = card - 1
 
-                sys.stdout.write("\n\n<You>: ") 
-                print message
+                server.send(pickle.dumps(cardsOnHand[card]))
+                sys.stdout.write("\n\nselect card: \n") 
+                print "value: " + str(cardsOnHand[card].value) + "\ttype: " + str(cardsOnHand[card].type) + "\n\n"
+                cardsOnHand.remove(cardsOnHand[card])
+                
                 sys.stdout.flush()
             else:
                 player = pickle.loads(message)
