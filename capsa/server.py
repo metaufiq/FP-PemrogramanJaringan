@@ -45,7 +45,7 @@ first = 0
 
 def setTurn():
 
-    for conn in range(len(list_of_player)):
+    for conn in list_of_player:
         
         if conn != first:
             turn.put(conn)    
@@ -123,7 +123,7 @@ if __name__ == "__main__":
     
     Finish = False
     
-    broadcast("NOTIFICATION_Lets Play!!!")
+    broadcast("NOTIFICATION_Game Begin")
     playerNow = turn.get()
     turn.put(playerNow)
 
@@ -132,10 +132,15 @@ if __name__ == "__main__":
         time.sleep(2)
         playerNow.send("PLAY_Play")
 
-        message = playerNow.recv(2048)
-        while not message:
-            message = playerNow.recv(2048)
+        card = playerNow.recv(2048)
+        while not card:
+            card = playerNow.recv(2048)
         
+        card = pickle.loads(card)
+        print "onBoard: \n"
+        print "value: " + str(card.value) + "\ttype: " + str(card.type) + "\n\n"
+        cards_on_board.append(card)
+
         playerNow = turn.get()
         turn.put(playerNow)
 
