@@ -28,13 +28,13 @@ class Window(Frame):
         self.b2.pack()
         self.frame.pack()
 
-        load = Image.open("board.jpeg")
+        load = Image.open("images (1).jpeg")
         render = ImageTk.PhotoImage(load)
         img = Label(self, image=render)
         img.image = render
         img.place(x=0, y=0)
 
-        load = Image.open("board.jpeg")
+        load = Image.open("images (1).jpeg")
         render = ImageTk.PhotoImage(load)
         img = Label(self, image=render)
         img.image = render
