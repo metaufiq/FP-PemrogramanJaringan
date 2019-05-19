@@ -1,5 +1,6 @@
 import Tkinter
 from Tkinter import *
+from PIL import Image, ImageTk
 
 class Window(Frame):
 
@@ -9,13 +10,16 @@ class Window(Frame):
         self.init_window()
 
     def init_window(self):     
-        self.master.title("GUI")
+        self.master.title("Capsa")
         self.pack(fill=BOTH, expand=1)
         menu = Menu(self.master)
         self.master.config(menu=menu)
         file = Menu(menu)
         file.add_command(label="Exit", command=self.client_exit)
         menu.add_cascade(label="File", menu=file)
+        view = Menu(menu)
+        view.add_command(label="Chat", command=self.new_window)
+        menu.add_cascade(label="View", menu=view)
         account = Menu(menu)
         account.add_command(label="Login", command=self.new_window)
         menu.add_cascade(label="Account", menu=account)
@@ -23,6 +27,18 @@ class Window(Frame):
         self.b2 = Button(self.master, text="Login", command=self.new_window)
         self.b2.pack()
         self.frame.pack()
+
+        load = Image.open("board.jpeg")
+        render = ImageTk.PhotoImage(load)
+        img = Label(self, image=render)
+        img.image = render
+        img.place(x=0, y=0)
+
+        load = Image.open("board.jpeg")
+        render = ImageTk.PhotoImage(load)
+        img = Label(self, image=render)
+        img.image = render
+        img.place(x=200, y=13)
 
     def new_window(self):
         self.master.withdraw()
@@ -41,7 +57,7 @@ class Play(Frame):
         self.Login()
 
     def Login(self):
-        self.master.title("GUI")
+        self.master.title("Capsa")
         self.pack(fill=BOTH, expand=1)
         menu = Menu(self.master)
         self.master.config(menu=menu)
@@ -67,6 +83,6 @@ class Play(Frame):
 
 
 root = Tk()
-root.geometry("200x100")
+root.geometry("800x600")
 app = Window(root)
 root.mainloop()  
