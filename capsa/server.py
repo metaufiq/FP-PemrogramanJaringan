@@ -6,6 +6,7 @@ import Queue
 import pickle
 from Player import *
 from Deck import *
+from Message import *
 from thread import *
 import time
   
@@ -59,7 +60,7 @@ def chatThread(conn, addr):
 def broadcast(message): 
     for p in list_of_player:  
             try: 
-                p.send(message) 
+                p.send(pickle.dumps(message)) 
             except: 
                 p.close() 
   
@@ -76,7 +77,7 @@ def getAllPlayers():
     while len(list_of_player) < 4:
         conn, addr = server.accept() 
         list_of_player.append(conn)
-
+        global first
         print addr[0] + " connected "
 
         player.append(Player(addr[0]))
@@ -99,15 +100,15 @@ def getAllPlayers():
         
         player[-1].setCards(player_cards)
         
-        conn.send(pickle.dumps(player[-1]))
+        conn.send(pickle.dumps(Message("PLAYER",player[-1])))
         time.sleep(2)
         # sends a message to the client whose user object is conn 
-        message =  "NOTIFICATION_Welcome to CAPSA!\n\n"
+        message =  Message("NOTIFICATION","Welcome to CAPSA!\n\n");
     
         if len(player) < 4:
-            message = message + "Waiting for " + str(4-len(player)) +" player to play this game\n\n"
+            message.message = message.message + "Waiting for " + str(4-len(player)) +" player to play this game\n\n"
         
-        conn.send(message)
+        conn.send(pickle.dumps(message))
         time.sleep(2)
         #start_new_thread(chatThread,(conn,addr))   
 
@@ -123,14 +124,16 @@ if __name__ == "__main__":
     
     Finish = False
     
-    broadcast("NOTIFICATION_Game Begin")
+    broadcast(Message("NOTIFICATION", "Game Begin"))
     playerNow = turn.get()
     turn.put(playerNow)
 
 
     while not Finish:
         time.sleep(2)
-        playerNow.send("PLAY_Play")
+        broadcast(Message("ONBOARD", cards_on_board))
+        time.sleep(2)
+        playerNow.send(pickle.dumps(Message("PLAY","play")))
 
         card = playerNow.recv(2048)
         while not card:
@@ -139,6 +142,9 @@ if __name__ == "__main__":
         card = pickle.loads(card)
         print "onBoard: \n"
         print "value: " + str(card.value) + "\ttype: " + str(card.type) + "\n\n"
+        
+        cards_on_board = []
+        
         cards_on_board.append(card)
 
         playerNow = turn.get()
