@@ -53,6 +53,7 @@ while True:
                 card = 0
                 card = input("\nselect card: ")
                 card = card - 1
+                
 
                 server.send(pickle.dumps(cardsOnHand[card]))
                 sys.stdout.write("\n\nselected card: \n") 
@@ -66,7 +67,7 @@ while True:
                 print "cards on board: \n"
                 for card in cardsOnBoard:
                     print 'value:'+ str(card.value) + '\ttype:' + str(card.type) + '\n'
-                        
+
             elif message.type == 'PLAYER':
                 player = message.message
                 print "cards sending to you"
