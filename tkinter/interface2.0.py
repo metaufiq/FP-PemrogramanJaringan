@@ -54,9 +54,10 @@ class Play(Frame):
     def __init__(self, master=None):
         Frame.__init__(self, master)             
         self.master = master
-        self.Login()
+        self.master.geometry("800x600")
+        self.init_window()
 
-    def Login(self):
+    def init_window(self):
         self.master.title("Capsa")
         self.pack(fill=BOTH, expand=1)
         menu = Menu(self.master)
