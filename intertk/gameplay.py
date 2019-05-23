@@ -30,16 +30,29 @@ class GamePlay():
 		self.framechat = tk.Frame(window, bg='#fff3e1')
 		self.framechat.place(relx=0, rely=0, relwidth=1, relheight=1)
 
-		entrychat = tk.Entry(self.framechat, bg='white', bd=0, justify='left')
+		entrychat = tk.Entry(self.framechat, bg='white', bd=0, justify='left', font=50)
 		entrychat.place(relx=0.05, rely=0.8,relwidth=0.7, relheight=0.12)
 
-		button = tk.Button(self.framechat, text="Kirim", bg='black', fg='white', bd=0, activebackground='#fff3e1', command=lambda: self.printchat(entrychat.get(), self.player.IP))
+		button = tk.Button(self.framechat, text="Kirim", bg='black', fg='white', bd=0, activebackground='#fff3e1', font=50, command=lambda: self.printchat(entrychat.get(), self.player.IP))
 		button.place(relx=0.75, rely=0.8, relwidth=0.2, relheight=0.12)
+
+		self.frametext = tk.Frame(self.framechat, bg='#fff3e1')
+		self.frametext.place(relx=0.05, rely=0, relwidth=0.9, relheight=0.8)
 
 	def printchat(self,entrychat, playerIP):
 		print entrychat
-		labelchat = tk.Label(self.framechat, text=playerIP+' : '+entrychat, bg='#fff3e1', font=50)
-		labelchat.place(relx=0.37, rely=0.55, relwidth=0.26)
+
+		labelchat = tk.Label(self.frametext, text=playerIP+' : '+entrychat, bg='#ffffff', font=50)
+		labelchat.place(relx=0, rely=0.06, relwidth=1, relheight=0.14)
+
+		labelchat = tk.Label(self.frametext, text=playerIP+' : '+entrychat, bg='#ffffff', font=50)
+		labelchat.place(relx=0, rely=0.26, relwidth=1, relheight=0.14)
+
+		labelchat = tk.Label(self.frametext, text=playerIP+' : '+entrychat, bg='#ffffff', font=50)
+		labelchat.place(relx=0, rely=0.46, relwidth=1, relheight=0.14)
+
+		labelchat = tk.Label(self.frametext, text=playerIP+' : '+entrychat, bg='#ffffff', font=50)
+		labelchat.place(relx=0, rely=0.66, relwidth=1, relheight=0.14)
 
 	def playGame(self,root):
 		frameGame = tk.Frame(root, bg='#000000')
