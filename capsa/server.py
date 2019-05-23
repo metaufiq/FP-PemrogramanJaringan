@@ -92,7 +92,7 @@ def getAllPlayers():
 
             card = deck.get()
 
-            if card.value == 2 and card.type == 3:
+            if card.number == 2 and card.type == 3:
                 turn.put(conn)
                 first = conn
 
@@ -141,7 +141,7 @@ if __name__ == "__main__":
         
         card = pickle.loads(card)
         print "onBoard: \n"
-        print "value: " + str(card.value) + "\ttype: " + str(card.type) + "\n\n"
+        print "value: " + str(card.number) + "\ttype: " + str(card.type) + "\n\n"
         
         cards_on_board = []
         

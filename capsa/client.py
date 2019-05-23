@@ -44,15 +44,19 @@ while True:
             elif message.type == 'PLAY':
                 print "Your Turn\n\n"
                 print"your cards: \n"
-                i = 1
+
                 for card in cardsOnHand:
-                    print 'value:'+ str(card.value) + '\ttype:' + str(card.type) + '\n'
+                    print 'value:'+ str(card.number) + '\ttype:' + str(card.type) + '\n'
                     
-                    i+=1
                 
                 card = 0
                 card = input("\nselect card: ")
                 card = card - 1
+
+                if cardsOnBoard:
+                    while cardsOnBoard[0].value > cardsOnHand[card].value:
+                        print("your cards have lower value than card on board...\n\n")
+                        card = input("select card...again: ")
                 
 
                 server.send(pickle.dumps(cardsOnHand[card]))
@@ -66,7 +70,7 @@ while True:
 
                 print "cards on board: \n"
                 for card in cardsOnBoard:
-                    print 'value:'+ str(card.value) + '\ttype:' + str(card.type) + '\n'
+                    print 'value:'+ str(card.number) + '\ttype:' + str(card.type) + '\n'
 
             elif message.type == 'PLAYER':
                 player = message.message
