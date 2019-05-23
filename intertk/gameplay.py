@@ -13,6 +13,7 @@ import msvcrt
 class GamePlay():
 	cardsOnHand = []
 	cardsOnBoard = []
+	player = 0
 
 	def chat(self,root):
 		window = tk.Toplevel(root)
@@ -156,9 +157,9 @@ class GamePlay():
 							print 'value:'+ str(card.number) + '\ttype:' + str(card.type) + '\n'
 
 					elif message.type == 'PLAYER':
-						player = message.message
+						self.player = message.message
 						print "cards sending to you"
-						self.cardsOnHand = player.getCards()
+						self.cardsOnHand = self.player.getCards()
 						
 						xPosition = 0
 						cardsBottom = []
