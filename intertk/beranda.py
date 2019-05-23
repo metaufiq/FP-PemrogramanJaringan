@@ -27,7 +27,8 @@ label.place(relx=0.37, rely=0.55, relwidth=0.26)
 entry = tk.Entry(frame, bg='white', bd=0, font=40, justify='center')
 entry.place(relx=0.37, rely=0.6,relwidth=0.26, relheight=0.05)
 
-def mulai():
+def mulai(entry):
+	print(entry)
    	framegame = tk.Frame(root, bg='#000000')
    	framegame.place(relx=0, rely=0, relwidth=1, relheight=1)
    	load = Image.open("../asset/meja.png")
@@ -52,7 +53,7 @@ def mulai():
 		cardsRight[i].place(relx=0, rely=yPosition, relwidth=1, relheight=0.3)
 		yPosition+=0.07
 
-button = tk.Button(frame, text="Mulai", bg='black', fg='white', font=40, bd=0, activebackground='#fff3e1', command= mulai)
+button = tk.Button(frame, text="Mulai", bg='black', fg='white', font=40, bd=0, activebackground='#fff3e1', command=lambda: mulai(entry.get()))
 button.place(relx=0.44, rely=0.67, relwidth=0.12, relheight=0.05)
 
 def tentang():
