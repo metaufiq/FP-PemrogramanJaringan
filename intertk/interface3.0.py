@@ -13,7 +13,7 @@ canvas.pack()
 frame = tk.Frame(root, bg='#fff3e1')
 frame.place(relx=0, rely=0, relwidth=1, relheight=1)
 
-load = Image.open("./asset logo/instagram_profile_image.png").resize((400, 400), Image.ANTIALIAS)
+load = Image.open("../asset/asset logo/instagram_profile_image.png").resize((400, 400), Image.ANTIALIAS)
 render = ImageTk.PhotoImage(load)
 img = tk.Label(frame, image=render, bg='#fff3e1')
 img.image = render
