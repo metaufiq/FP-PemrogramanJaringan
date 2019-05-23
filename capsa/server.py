@@ -74,7 +74,7 @@ def remove(connection):
 
 
 def getAllPlayers():
-    while len(list_of_player) < 4:
+    while len(list_of_player) < 400:
         conn, addr = server.accept() 
         list_of_player.append(conn)
         global first
