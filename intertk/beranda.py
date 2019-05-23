@@ -37,13 +37,10 @@ entry.place(relx=0.37, rely=0.6,relwidth=0.26, relheight=0.05)
 button = tk.Button(frame, text="Mulai", bg='black', fg='white', font=40, bd=0, activebackground='#fff3e1', command=lambda: mulai(entry.get()))
 button.place(relx=0.44, rely=0.67, relwidth=0.12, relheight=0.05)
 
-
 def tentang():
    tkMessageBox.showinfo( "Tentang", "Capsa oleh Kelompok 2 Pemrograman Jaringan kelas C")
 
 button = tk.Button(frame, text="Tentang", bg='#fff3e1', fg='black', bd=0, activebackground='#fff3e1', command= tentang)
 button.place(relx=0.44, rely=0.9, relwidth=0.12, relheight=0.05)
-
-
 
 root.mainloop()
