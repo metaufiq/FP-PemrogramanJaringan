@@ -7,6 +7,8 @@ WIDTH = 800
 
 root = tk.Tk()
 
+root.title('Capsa')
+
 canvas = tk.Canvas(root, height=HEIGHT, width=WIDTH)
 canvas.pack()
 
@@ -22,16 +24,16 @@ img.place(relx=0.35, rely=0.16, relwidth=0.3, relheight=0.3)
 label = tk.Label(frame, text="Masukkan Email Anda", bg='#fff3e1')
 label.place(relx=0.37, rely=0.55, relwidth=0.26)
 
-entry = tk.Entry(frame, bg='white', bd=0, font=40)
+entry = tk.Entry(frame, bg='white', bd=0, font=40, justify='center')
 entry.place(relx=0.37, rely=0.6,relwidth=0.26, relheight=0.05)
 
-button = tk.Button(frame, text="Mulai", bg='black', fg='white', font=40, bd=0)
+button = tk.Button(frame, text="Mulai", bg='black', fg='white', font=40, bd=0, activebackground='#fff3e1')
 button.place(relx=0.44, rely=0.67, relwidth=0.12, relheight=0.05)
 
 def tentang():
-   tkMessageBox.showinfo( "Tentang", "Capsa oleh kelompok 2")
+   tkMessageBox.showinfo( "Tentang", "Capsa oleh Kelompok 2 Pemrograman Jaringan kelas C")
 
-button = tk.Button(frame, text="Tentang", bg='#fff3e1', fg='black', bd=0, command= tentang)
-button.place(relx=0.44, rely=0.8, relwidth=0.12, relheight=0.05)
+button = tk.Button(frame, text="Tentang", bg='#fff3e1', fg='black', bd=0, activebackground='#fff3e1', command= tentang)
+button.place(relx=0.44, rely=0.9, relwidth=0.12, relheight=0.05)
 
 root.mainloop()
