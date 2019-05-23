@@ -5,7 +5,7 @@ HEIGHT = 700
 WIDTH = 800
 
 root = tk.Tk()
-
+root.resizable(width=False, height=False)
 canvas = tk.Canvas(root, height=HEIGHT, width=WIDTH)
 canvas.pack()
 
@@ -20,18 +20,35 @@ background_label.place(x=0, y=0 ,relwidth=1, relheight=1)
 frameLeft = tk.Frame(background_label, bg='#f4f142')
 frameLeft.place(relx=0, rely=0.2, relwidth=0.1, relheight=0.6)
 
+yPosition = 0
+backcards = ImageTk.PhotoImage(Image.open("../asset/asset kartu/Deck2.gif").resize((135,120), Image.ANTIALIAS))
+cardsLeft= []
 
+for i in range(13):
+    cardsLeft.append(tk.Label(frameLeft, image=backcards))
+    cardsLeft[i].place(relx=0, rely=yPosition , relwidth=1, relheight=0.3)
+    yPosition+=0.07
 
 
 frameRight = tk.Frame(background_label, bg='#f46242')
 frameRight.place(relx=0.9, rely=0.2, relwidth=0.1, relheight=0.6)
 
-frameUp= tk.Frame(background_label, bg='#42f453')
-frameUp.place(relx=0.2, rely=0.0, relwidth=0.6, relheight=0.1)
+yPosition = 0
+cardsRight= []
+for i in range(13):
+    cardsRight.append(tk.Label(frameRight, image=backcards))
+    cardsRight[i].place(relx=0, rely=yPosition, relwidth=1, relheight=0.3)
+    yPosition+=0.07
 
-background_clubs3 = ImageTk.PhotoImage(Image.open("../asset/asset kartu/Deck2.gif").resize((12,120), Image.ANTIALIAS))
-background_card3 = tk.Label(frameLeft, image=background_clubs3)
-background_card3.place(x=0, rely=0.1 ,relwidth=1, relheight=0.3)
+frameTop= tk.Frame(background_label, bg='#42f453')
+frameTop.place(relx=0.2, rely=0.0, relwidth=0.6, relheight=0.1)
+
+xPosition = 0
+cardsTop= []
+for i in range(13):
+    cardsTop.append(tk.Label(frameTop, image=backcards))
+    cardsTop[i].place(relx=xPosition, rely=0, relwidth=0.3, relheight=1)
+    xPosition+=0.07
 
 frameBottom = tk.Frame(background_label, bg='#4268f4')
 frameBottom.place(relx=0.2, rely=0.9, relwidth=0.6, relheight=0.1)
