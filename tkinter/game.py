@@ -9,10 +9,10 @@ root = tk.Tk()
 canvas = tk.Canvas(root, height=HEIGHT, width=WIDTH)
 canvas.pack()
 
-background_image = tk.PhotoImage(file='table.jpg')
+background_image = tk.PhotoImage(file='meja.jpeg')
 background_label = tk.Label(root, image=background_image)
 background_label.place(relwidth=1, relheight=1)
-    
+
 frame = tk.Frame(root, bg='pink')
 frame.place(relx=0, rely=0, relwidth=1, relheight=1)
 
