@@ -13,6 +13,7 @@ import msvcrt
 class GamePlay():
 	cardsOnHand = []
 	cardsOnBoard = []
+	player = 0
 
 	def chat(self,root):
 		window = tk.Toplevel(root)
@@ -32,12 +33,12 @@ class GamePlay():
 		entrychat = tk.Entry(self.framechat, bg='white', bd=0, justify='left')
 		entrychat.place(relx=0.05, rely=0.8,relwidth=0.7, relheight=0.12)
 
-		button = tk.Button(self.framechat, text="Kirim", bg='black', fg='white', bd=0, activebackground='#fff3e1', command=lambda: self.printchat(entrychat.get()))
+		button = tk.Button(self.framechat, text="Kirim", bg='black', fg='white', bd=0, activebackground='#fff3e1', command=lambda: self.printchat(entrychat.get(), self.player.IP))
 		button.place(relx=0.75, rely=0.8, relwidth=0.2, relheight=0.12)
 
-	def printchat(self,entrychat):
+	def printchat(self,entrychat, playerIP):
 		print entrychat
-		labelchat = tk.Label(self.framechat, text=entrychat, bg='#fff3e1', font=50)
+		labelchat = tk.Label(self.framechat, text=playerIP+' : '+entrychat, bg='#fff3e1', font=50)
 		labelchat.place(relx=0.37, rely=0.55, relwidth=0.26)
 
 	def playGame(self,root):
@@ -158,9 +159,9 @@ class GamePlay():
 							print 'value:'+ str(card.number) + '\ttype:' + str(card.type) + '\n'
 
 					elif message.type == 'PLAYER':
-						player = message.message
+						self.player = message.message
 						print "cards sending to you"
-						self.cardsOnHand = player.getCards()
+						self.cardsOnHand = self.player.getCards()
 						
 						xPosition = 0
 						cardsBottom = []
