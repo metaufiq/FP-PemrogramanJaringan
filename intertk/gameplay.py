@@ -38,21 +38,11 @@ class GamePlay():
 
 		self.frametext = tk.Frame(self.framechat, bg='#fff3e1')
 		self.frametext.place(relx=0.05, rely=0, relwidth=0.9, relheight=0.8)
+		start_new_thread(self.ClientChathread,())
 
 	def printchat(self,entrychat, playerIP):
-		print entrychat
+		self.server.send(pickle.dumps(Message('CHAT', playerIP+' : '+entrychat)))
 
-		labelchat = tk.Label(self.frametext, text=playerIP+' : '+entrychat, bg='#ffffff', font=50)
-		labelchat.place(relx=0, rely=0.06, relwidth=1, relheight=0.14)
-
-		labelchat = tk.Label(self.frametext, text=playerIP+' : '+entrychat, bg='#ffffff', font=50)
-		labelchat.place(relx=0, rely=0.26, relwidth=1, relheight=0.14)
-
-		labelchat = tk.Label(self.frametext, text=playerIP+' : '+entrychat, bg='#ffffff', font=50)
-		labelchat.place(relx=0, rely=0.46, relwidth=1, relheight=0.14)
-
-		labelchat = tk.Label(self.frametext, text=playerIP+' : '+entrychat, bg='#ffffff', font=50)
-		labelchat.place(relx=0, rely=0.66, relwidth=1, relheight=0.14)
 
 	def playGame(self,root):
 		frameGame = tk.Frame(root, bg='#000000')
@@ -164,6 +154,10 @@ class GamePlay():
 						self.cardsOnHand.remove(self.cardsOnHand[card])
 
 						sys.stdout.flush()
+					elif message.type == 'CHAT':
+						labelchat = tk.Label(self.frametext, text=message.message, bg='#ffffff', font=50)
+						labelchat.place(relx=0, rely=0.06, relwidth=1, relheight=0.14)
+						
 					elif message.type == 'ONBOARD':
 						self.cardsOnBoard = message.message
 

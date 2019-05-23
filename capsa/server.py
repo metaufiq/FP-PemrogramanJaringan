@@ -135,20 +135,26 @@ if __name__ == "__main__":
         time.sleep(2)
         playerNow.send(pickle.dumps(Message("PLAY","play")))
 
-        card = playerNow.recv(2048)
-        while not card:
-            card = playerNow.recv(2048)
+        message = playerNow.recv(2048)
+        while not message:
+            message = playerNow.recv(2048)
+        print message.message
         
-        card = pickle.loads(card)
-        print "onBoard: \n"
-        print "value: " + str(card.number) + "\ttype: " + str(card.type) + "\n\n"
-        
-        cards_on_board = []
-        
-        cards_on_board.append(card)
+        # card = pickle.loads(card)
+        # print "onBoard: \n"
+        # print "value: " + str(card.number) + "\ttype: " + str(card.type) + "\n\n"
+        message = pickle.loads(message)
+        print message.type
+        if message.type == 'CHAT':
+            broadcast(Message('CHAT', message.message))
+            print message.message
 
-        playerNow = turn.get()
-        turn.put(playerNow)
+        # cards_on_board = []
+        
+        # cards_on_board.append(card)
+
+        # playerNow = turn.get()
+        # turn.put(playerNow)
 
 
 server.close()
