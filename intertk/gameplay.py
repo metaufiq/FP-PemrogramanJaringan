@@ -51,7 +51,12 @@ class GamePlay():
 
 		frameLeft = tk.Frame(frameGame, bg='#f4f142')
 		frameLeft.place(relx=0, rely=0.2, relwidth=0.1, relheight=0.6)
-
+		
+		load = Image.open("../asset/asset kartu/number_2_type_3.png").resize((175,212), Image.ANTIALIAS)
+		render = ImageTk.PhotoImage(load)
+		card = tk.Label(frameGame, image=render, bg='#fff3e1')
+		card.image = render
+		card.place(relx=0.4, rely=0.3, relwidth=0.2, relheight=0.3)	
 		load = Image.open("../asset/asset kartu/Deck2.gif")
 		render = ImageTk.PhotoImage(load)
 		
