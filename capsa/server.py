@@ -110,7 +110,7 @@ def getAllPlayers():
         
         conn.send(pickle.dumps(message))
         time.sleep(2)
-        #start_new_thread(chatThread,(conn,addr))   
+        start_new_thread(chatThread,(conn,addr))   
 
 
         

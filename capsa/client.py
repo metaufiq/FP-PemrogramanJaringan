@@ -46,7 +46,7 @@ while True:
                 print"your cards: \n"
 
                 for card in cardsOnHand:
-                    print 'value:'+ str(card.number) + '\ttype:' + str(card.type) + '\n'
+                    print 'number:'+ str(card.number) + '\ttype:' + str(card.type) + '\n'
                     
                 
                 card = 0

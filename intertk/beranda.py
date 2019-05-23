@@ -1,10 +1,13 @@
 import Tkinter as tk
 from PIL import Image, ImageTk
 import tkMessageBox
-from function import *
+from gameplay import *
 
 HEIGHT = 700
 WIDTH = 800
+play = False
+cardsOnHand = []
+cardsOnBoard = []
 
 root = tk.Tk()
 root.resizable(width=False, height=False)
@@ -14,9 +17,11 @@ root.title('Capsa')
 canvas = tk.Canvas(root, height=HEIGHT, width=WIDTH)
 canvas.pack()
 
-def mulai():
+def mulai(entry):
 	frame.destroy()
-	play(root)
+	gamePlay = GamePlay()
+	gamePlay.playGame(root)
+	
 
 frame = tk.Frame(root, bg='#fff3e1')
 frame.place(relx=0, rely=0, relwidth=1, relheight=1)
