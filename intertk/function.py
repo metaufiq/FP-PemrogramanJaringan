@@ -49,3 +49,28 @@ def play(root):
 		cardsTop.append(card)
 		cardsTop[i].place(relx=xPosition, rely=0, relwidth=0.18, relheight=1)
 		xPosition+=0.07
+
+
+def chat(root):
+    window = tk.Toplevel(root)
+    window.resizable(width=False, height=False)
+
+    HEIGHT = 300
+    WIDTH = 800
+
+    window.title('Chat Capsa')
+
+    canvaschat = tk.Canvas(window, height=HEIGHT, width=WIDTH)
+    canvaschat.pack()
+
+    framechat = tk.Frame(window, bg='#fff3e1')
+    framechat.place(relx=0, rely=0, relwidth=1, relheight=1)
+
+    entrychat = tk.Entry(framechat, bg='white', bd=0, justify='left')
+    entrychat.place(relx=0.05, rely=0.8,relwidth=0.7, relheight=0.12)
+
+    button = tk.Button(framechat, text="Kirim", bg='black', fg='white', bd=0, activebackground='#fff3e1', command=lambda: printchat(entrychat.get()))
+    button.place(relx=0.75, rely=0.8, relwidth=0.2, relheight=0.12)
+
+def printchat(entrychat):
+	print entrychat

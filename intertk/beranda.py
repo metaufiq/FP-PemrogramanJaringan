@@ -14,9 +14,11 @@ root.title('Capsa')
 canvas = tk.Canvas(root, height=HEIGHT, width=WIDTH)
 canvas.pack()
 
-def mulai():
+def mulai(entry):
 	frame.destroy()
 	play(root)
+	chat(root)
+	print entry
 
 frame = tk.Frame(root, bg='#fff3e1')
 frame.place(relx=0, rely=0, relwidth=1, relheight=1)
@@ -31,8 +33,6 @@ label.place(relx=0.37, rely=0.55, relwidth=0.26)
 
 entry = tk.Entry(frame, bg='white', bd=0, font=40, justify='center')
 entry.place(relx=0.37, rely=0.6,relwidth=0.26, relheight=0.05)
-
-
 
 button = tk.Button(frame, text="Mulai", bg='black', fg='white', font=40, bd=0, activebackground='#fff3e1', command=lambda: mulai(entry.get()))
 button.place(relx=0.44, rely=0.67, relwidth=0.12, relheight=0.05)
