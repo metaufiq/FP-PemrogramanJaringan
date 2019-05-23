@@ -21,9 +21,7 @@ def mulai(entry):
 	frame.destroy()
 	gamePlay = GamePlay()
 	gamePlay.playGame(root)
-	
-	play(root)
-	chat(root)
+	gamePlay.chat(root)
 
 frame = tk.Frame(root, bg='#fff3e1')
 frame.place(relx=0, rely=0, relwidth=1, relheight=1)
