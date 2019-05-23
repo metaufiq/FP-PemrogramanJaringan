@@ -22,7 +22,7 @@ img.place(relx=0.35, rely=0.16, relwidth=0.3, relheight=0.3)
 label = tk.Label(frame, text="Masukkan Email Anda", bg='#fff3e1')
 label.place(relx=0.37, rely=0.55, relwidth=0.26)
 
-entry = tk.Entry(frame, bg='white', bd=0)
+entry = tk.Entry(frame, bg='white', bd=0, font=40)
 entry.place(relx=0.37, rely=0.6,relwidth=0.26, relheight=0.05)
 
 button = tk.Button(frame, text="Mulai", bg='black', fg='white', font=40, bd=0)
