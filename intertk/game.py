@@ -6,6 +6,7 @@ WIDTH = 800
 
 root = tk.Tk()
 root.resizable(width=False, height=False)
+root.title('Capsa')
 canvas = tk.Canvas(root, height=HEIGHT, width=WIDTH)
 canvas.pack()
 
