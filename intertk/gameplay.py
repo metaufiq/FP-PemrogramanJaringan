@@ -45,22 +45,18 @@ class GamePlay():
 
 
 	def playGame(self,root):
-		frameGame = tk.Frame(root, bg='#000000')
-		frameGame.place(relx=0, rely=0, relwidth=1, relheight=1)
+		self.frameGame = tk.Frame(root, bg='#000000')
+		self.frameGame.place(relx=0, rely=0, relwidth=1, relheight=1)
 		load = Image.open("../asset/meja.png")
 		render = ImageTk.PhotoImage(load)
-		img = tk.Label(frameGame, image=render, bg='#fff3e1')
+		img = tk.Label(self.frameGame, image=render, bg='#fff3e1')
 		img.image = render
 		img.place(relx=0, rely=0, relwidth=1, relheight=1)
 
-		frameLeft = tk.Frame(frameGame, bg='#f4f142')
+		frameLeft = tk.Frame(self.frameGame, bg='#f4f142')
 		frameLeft.place(relx=0, rely=0.2, relwidth=0.1, relheight=0.6)
 		
-		load = Image.open("../asset/asset kartu/number_2_type_3.png").resize((175,212), Image.ANTIALIAS)
-		render = ImageTk.PhotoImage(load)
-		card = tk.Label(frameGame, image=render, bg='#fff3e1')
-		card.image = render
-		card.place(relx=0.4, rely=0.3, relwidth=0.2, relheight=0.3)	
+
 		load = Image.open("../asset/asset kartu/Deck2.gif")
 		render = ImageTk.PhotoImage(load)
 		
@@ -73,7 +69,7 @@ class GamePlay():
 			cardsLeft[i].place(relx=0, rely=yPosition, relwidth=1, relheight=0.3)
 			yPosition+=0.07
 		
-		frameRight = tk.Frame(frameGame, bg='#f46242')
+		frameRight = tk.Frame(self.frameGame, bg='#f46242')
 		frameRight.place(relx=0.9, rely=0.2, relwidth=0.1, relheight=0.6)
 
 		yPosition = 0
@@ -85,7 +81,7 @@ class GamePlay():
 			cardsRight[i].place(relx=0, rely=yPosition, relwidth=1, relheight=0.3)
 			yPosition+=0.07
 		
-		frameTop= tk.Frame(frameGame, bg='#42f453')
+		frameTop= tk.Frame(self.frameGame, bg='#42f453')
 		frameTop.place(relx=0.2, rely=0.0, relwidth=0.6, relheight=0.1)
 
 		xPosition = 0
@@ -97,7 +93,7 @@ class GamePlay():
 			cardsTop[i].place(relx=xPosition, rely=0, relwidth=0.18, relheight=1)
 			xPosition+=0.07
 
-		self.frameBottom = tk.Frame(frameGame, bg='#4268f4')
+		self.frameBottom = tk.Frame(self.frameGame, bg='#4268f4')
 		self.frameBottom.place(relx=0.2, rely=0.9, relwidth=0.6, relheight=0.1)
 
 		self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
@@ -176,11 +172,17 @@ class GamePlay():
 							print 'number:'+ str(card.number) + '\ttype:' + str(card.type) + '\n'
 							load = Image.open("../asset/asset kartu/number_"+str(card.number)+"_type_"+str(card.type)+".png").resize((80,70), Image.ANTIALIAS)
 							render = ImageTk.PhotoImage(load)
-							cardModel = tk.Button(self.frameBottom, image=render, bg='#fff3e1')
+							cardModel = tk.Button(self.frameBottom, image=render, bg='#fff3e1', command=lambda: self.taroKartu(card.number,card.type))
 							cardModel.image = render
 							cardsBottom.append(cardModel)
 							cardsBottom[-1].place(relx=xPosition, rely=0, relwidth=0.18, relheight=1)
-							
+	
 							xPosition+=0.07
 
-		self.server.close() 
+		self.server.close()
+	def taroKartu(self,number,type):
+		load = Image.open("../asset/asset kartu/number_"+str(number)+"_type_"+str(type)+".png").resize((175,212), Image.ANTIALIAS)
+		render = ImageTk.PhotoImage(load)
+		card = tk.Label(self.frameGame, image=render, bg='#fff3e1')
+		card.image = render
+		card.place(relx=0.4, rely=0.3, relwidth=0.2, relheight=0.3)	
